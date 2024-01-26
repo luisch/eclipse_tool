@@ -9,7 +9,15 @@ eclipse_toolは、2024年春の米国皆既日食でソニー機対応の日食�
 
 WindowsのWSL2環境で動作させます。
 
-### WSL2のインストール
+### 環境整備
+
+#### Windowsターミナル
+
+以下を参考にWindowsターミナルをインストールします。
+
+> https://learn.microsoft.com/ja-jp/windows/terminal/install
+
+#### WSL2のインストール
 
 以下を参考に、WSL2のUbuntu環境を用意します。
 
@@ -17,15 +25,7 @@ WindowsのWSL2環境で動作させます。
 > 
 > https://learn.microsoft.com/ja-jp/windows/wsl/install
 
-### WSL2環境の整備
-
-aptでgphoto2を導入します。
-
-```
-sudo apt install gphoto2 git
-```
-
-### ソニー機の長秒シャッター押下プログラムを入手
+#### ソニー機の長秒シャッター押下プログラムのダウンロード
 
 ```
 cd ~
@@ -34,9 +34,7 @@ wget https://... #どこかに公開する
 unzip ....zip
 ```
 
-以下のファイルが展開されます。
-
-### eclipse-toolの入手
+#### eclipse-toolの入手
 
 ```
 mkdir -p /mnt/c/eclipse-tool
@@ -44,24 +42,59 @@ cd /mnt/c/eclipse-tool
 git clone ... #これ
 ```
 
-### カメラのUSB接続設定
-
 #### usbipdのインストール
 
 以下を参考に、usbipdのversion4以降を入手します。version4.0以前では動作しません。
 
 > https://learn.microsoft.com/ja-jp/windows/wsl/connect-usb
 
-#### カメラのUSB接続設定
+### USB接続設定
 
-次にコマンドプロンプト（管理者）を開き、次のコマンドを入力します。
+#### WSL2環境整備
+
+WindowsターミナルでUbuntuを開き、以下のコマンドでgphoto2, bc, git, wgetをインストールします。
+
+```
+sudo apt install gphoto2 bc git
+```
+
+#### カメラとUSB接続
+
+スタートボタンを右クリックしコマンドプロンプト（管理者）を開き、usbipd listと入力し実行します。
 リストが表示されるので、接続したいカメラ名を確認します。
 
 ```
 usbipd list
+
+Connected:
+BUSID  VID:PID    DEVICE                                                        STATE
+ ：
+2-14   054c:0e0c  ILCE-7RM5                                                     Not shared
 ```
 
-次に、c:\eclipse-toolにあるstart.ps1をエディタで開き、先頭行のcamera_nameを書き換えます。
+この場合、ILCE-7RM5が BUSID 2-14 に繋がっています。（差すUSB口が同じならIDも変わらない模様）
+
+次のコマンドを入力します。
+
+```
+usbipd bind --busid=2-14
+```
+
+再度usbipd listを実行すると、STATEが「Shared」になっています。
+
+```
+usbipd list
+
+Connected:
+BUSID  VID:PID    DEVICE                                                        STATE
+ ：
+2-14   054c:0e0c  ILCE-7RM5                                                     Shared
+```
+
+#### 環境変数の設定
+
+c:\eclipse-toolにあるstart.ps1をエディタで開き、先頭行のcamera_nameを上のusbipd listで得られたデバイス名に書き換えます。
+
 > $camera_name="ILCE-7RM5"
 
 ファイルを上書き保存して閉じます。
@@ -80,6 +113,14 @@ shoot.shを修正します。
 
 ### テスト実行
 
+#### カメラ側の設定
+
+リモート撮影設定でサイズを2Mまたは本体のみにする。
+
+※この設定を忘れると撮影途中でカメラ本体がフリーズします。なおフリーズしたら一旦電池とUSBを抜き差しすると復帰するようです。（α7Rv firmware 2.01 にて確認）
+
+#### 時計の調整
+
 Windowsのタイムゾーンと時刻を日食発生時刻の少し前に変更します。
 Windows Timeサービスをあらかじめ無効化しておいて下さい。
 
@@ -90,12 +131,9 @@ time 12:20
 ```
 と入力すれば変更可能です。
 
-カメラをUSBでつなぎ、start.ps1を実行すると撮影監視ウインドウが開きます。
+### テスト実行
 
-#### 補足（α7Rv）
-
-α7Rvの場合、リモート撮影設定でサイズを2Mまたは本体のみにしないとカメラ本体がフリーズします。(firmware 2.01)
-フリーズしたら一旦電池とUSBを抜き差しすると復帰するようです。
+カメラをUSBでつなぎ、run.batを実行すると撮影監視ウインドウが開きます。
 
 ## 当日
 
