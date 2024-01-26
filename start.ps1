@@ -18,7 +18,7 @@ $usbipdList    = usbipd list
 $attachedCount = ($usbipdList|Select-String "Attached").Count
 if ($attachedCount -eq 0) {
     Write-Output "### Camera not connected! ###"
-#    exit 1
+    exit 1
 }
 
 # wsl2下のgphoto2でカメラを認識させる
