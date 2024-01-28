@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 . ./eclipse-env.sh
+. ./shoot.sh
 
 #
 ## 部分日食
 #
-# F9.0, ISO100, SS1/1000,1/500,1/250
-# で、5分に１回程度の頻度で撮影
-#
-# gphoto2でやるならこんな感じか。スクリプトを分けて中断可能にした方がよいだろう。
+# $CAPTURE_INTERVAL秒に１回撮影
 #
 
 ## 第1接触まで待つ
@@ -19,7 +17,6 @@ while true; do
     start_time=$(date --utc +%H:%M:%S)
     
     # 撮影
-    echo "$start_time"
     shoot_partial
 
     # 前半部分日食の撮影終了条件
@@ -43,7 +40,6 @@ while true; do
     start_time=$(date --utc +%H:%M:%S)
     
     # 撮影
-    echo "$start_time"
     shoot_partial
 
     # 後半部分日食の撮影終了条件
@@ -56,3 +52,5 @@ while true; do
 	# 次の撮影タイミングまで待機
 	wait_until "partial" "$start_time" "+$CAPTURE_INTERVAL"
 done
+
+echo "End the Eclipse"
