@@ -8,7 +8,7 @@ eclipse_toolは、gphoto2を利用した皆既日食撮影の自動化ツール�
 ### 動作環境
 
 * Windows10または11のWSL2（Ubuntu）
-* gphoto2対応カメラ
+* gphoto2対応カメラ(SONY, NIKON, CANON, FUJIなど)
 
 ## 利用開始手順
 
