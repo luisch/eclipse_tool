@@ -35,5 +35,5 @@ Start-Sleep 5
 # その場合はshoot.sh内でgphoto2を呼び出すときに wsl -eを先頭につけること。
 # また裏でWSLのターミナルを開いておかないとエラーが出るっぽい。
 
-#wt.exe -p "Ubuntu" ";" new-tab -p "Ubuntu" -d . wsl -e ./_part.sh ";" split-pane -V -p "Ubuntu" -d . wsl -e ./_full.sh # WSL2で起動
-wt.exe -p "Ubuntu" ";" new-tab -d . cmd.exe /c bash ./_part.sh ";"  split-pane -V -d . cmd.exe /c bash ./_full.sh #Cygwinで起動
+wt.exe -p "Ubuntu" ";" new-tab -p "Ubuntu" -d . wsl -e ./_part.sh ";" split-pane -V -p "Ubuntu" -d . wsl -e ./_full.sh # WSL2で起動
+#wt.exe -p "Ubuntu" ";" new-tab -d . cmd.exe /c bash ./_part.sh ";"  split-pane -V -d . cmd.exe /c bash ./_full.sh     # Cygwinで起動

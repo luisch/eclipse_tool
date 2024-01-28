@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 # gphoto2初期化
-wsl -e gphoto2 -q --auto-detect
+gphoto2 -q --auto-detect
 
 #
 # 撮影関数の定義
@@ -25,15 +25,15 @@ shoot_partial() {
     #
     
     # A7Rvではshutterspeed=45が1/1000
-    wsl -e gphoto2 -q --set-config /main/capturesettings/shutterspeed=45 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed=45 --trigger-capture
     sleep 0.8
     
     # A7Rvではshutterspeed=45が1/500
-    wsl -e gphoto2 -q --set-config /main/capturesettings/shutterspeed=42 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed=42 --trigger-capture
     sleep 0.8
 
     # A7Rvではshutterspeed=45が1/250
-    wsl -e gphoto2 -q --set-config /main/capturesettings/shutterspeed=39 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed=39 --trigger-capture
     sleep 0.8
 }
 
@@ -47,7 +47,7 @@ shoot_diamondring() {
     #
     # 以下の例では、シャッター速度1/500, ドライブモードを連写LOに設定する。
     #
-    wsl -e gphoto2 -q \
+    gphoto2 -q \
         --set-config /main/capturesettings/shutterspeed=42 \
         --set-config /main/capturesettings/capturemode=4
     #
@@ -68,7 +68,7 @@ shoot_diamondring() {
     
     # sony remote sdkで作った「指定秒シャッターを切り続けるプログラム」を起動
     echo "Connect to A7RV.."
-    wsl -e ~/bin/push-shutter ${CAPTURE_DURATION_DURING_DIAMONDRING}
+    ./bin/push-shutter ${CAPTURE_DURATION_DURING_DIAMONDRING}
 }
 
 #
@@ -80,10 +80,10 @@ shoot_corona() {
     # --capture-imageでは直前のダイヤモンドリングで連写したバッファが残っている間は撮影が進まない。そこでtrigger-captureを用いている。
     # 0.8秒待っているのは、撮影コマンド実行からわずかな時間、カメラがシャッター速度等の変更を受け付けない時間があるため。
     #
-    wsl -e gphoto2 -q --set-config /main/capturesettings/shutterspeed=45 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed=45 --trigger-capture
     sleep 0.8
-    wsl -e gphoto2 -q --set-config /main/capturesettings/shutterspeed=42 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed=42 --trigger-capture
     sleep 0.8
-    wsl -e gphoto2 -q --set-config /main/capturesettings/shutterspeed=39 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed=39 --trigger-capture
     sleep 0.8
 }

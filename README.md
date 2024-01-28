@@ -46,20 +46,6 @@ git clone ... #これ
 
 > https://learn.microsoft.com/ja-jp/windows/wsl/connect-usb
 
-#### α7Rv用の長秒シャッター押下プログラムのダウンロード【α7Rvのみ】
-
-gphoto2で対応できない動作の補完ツールを入手します。
-
-```
-cd ~
-mkdir bin
-wget https://... #どこかに公開する
-unzip ....zip
-```
-
-※Sony Remote SDK ( https://support.d-imaging.sony.co.jp/app/sdk/en/index.html ) がサポートするデバイスのみ対応。  
-　それ以前の機種についてはgphoto2調査の上でshoot.shの修正が必要です。
-
 ## USBでカメラと接続
 
 #### 初期設定
@@ -117,9 +103,10 @@ c:\eclipse-toolにあるstart.ps1をエディタで開き、先頭行のcamera_n
 
 ご自身の撮影計画に合わせ、shoot.shを修正します。詳細はファイルの中のコメント行を確認してください。
 
-* α7Rv用に記載してありますが、同じαでも機種やファームウェアによってだいぶ変わると思います。
+* α7Rvでしか確認していません。同じαでも機種やファームウェアによってだいぶ変わると思います。
+* 特にSony Camera Remote SDK( https://support.d-imaging.sony.co.jp/app/sdk/ja/index.html )非対応機種の場合、ダイヤモンドリング撮影箇所の修正が必要です。
 * お手持ちのカメラをつなぎ、WSL2環境下でgphoto2 --list-all-configと実行して得られる結果を見ながら色々試して下さい。
-* gphoto2さえ動けばキヤノンやニコン、フジでも対応可能です。
+* gphoto2が動作するならキヤノンやニコン、フジでも理論上対応可能です。
 
 ### 観測地情報の設定
 
@@ -148,22 +135,25 @@ c:\eclipse-toolにあるstart.ps1をエディタで開き、先頭行のcamera_n
 Windowsのタイムゾーンと時刻を日食発生時刻の少し前に変更します。
 Windows Timeサービスをあらかじめ無効化しておいて下さい。
 
-「コマンドプロンプト（管理者）」から
-```
-date 2024/04/08
-time 12:20
-```
-と入力すれば変更可能です。
+settime-20240408CDT.batを利用すると、当日12:20に時計修正＆Windows Timeサービスの無効化できます。
 
 ### テスト実行
 
-* 省電設定（一定期間経過後に自動スリープになる）をオフにすることを推奨します。
+* 省電設定（一定期間経過後に自動スリープになる）をオフを推奨します。
+* 現地でネットワーク接続がない場合、機内モードにしてください。
+ * この場合、usbが正常動作しない可能性があります。下記「備考」参照。
 * USBでカメラと接続する。
  * 接続の直前にカメラバッテリーの抜き差しによるリセットを推奨します。
 * ツール起動
 　* run.batを実行します．
 
 撮影監視ウインドウを開くので、Eclipse Orchestrator等のシミューレーター等と並行にカメラ挙動を確認してください。
+
+#### 備考
+
+* usbipd: warning: A third-party firewall may be blocking the connection; ensure TCP port 3240 is allowed.と表示され固まる場合  
+WindowsFirewallの設定を開き、「WindowsFirewallの有効化または無効化」から「パブリックネットワークの設定」で「許可されたアプリの一覧にあるアプリも含め、すべての着信接続をブロックする」のチェックを外してください。
+またはWindows Defenderファイアウォールをすべて無効にしてください。(※撮影終了後、元に戻すことを推奨します。)
 
 ## 当日作業
 
