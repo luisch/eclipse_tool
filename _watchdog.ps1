@@ -1,4 +1,6 @@
 $camera_name="ILCE-7RM5"
+
+wsl timedatectl status
 usbipd detach -a
 
 #
