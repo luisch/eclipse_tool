@@ -19,9 +19,6 @@ shoot_partial() {
     # 0.8秒待っているのは、撮影コマンド実行からわずかな時間、カメラがシャッター速度等の変更を受け付けない時間があるため。
     # α7Rvで実験したところ0.5～0.7秒程度あるらしい。
     #
-
-    # gphoto2初期化
-    gphoto2 -q --auto-detect > /dev/null
     
     # A7Rvではshutterspeed=45が1/1000
     gphoto2 -q --set-config /main/capturesettings/shutterspeed=45 --trigger-capture
@@ -48,9 +45,8 @@ shoot_diamondring() {
     #
     # gphoto2初期化
     gphoto2 -q \
-        --auto-detect \
         --set-config /main/capturesettings/shutterspeed=42 \
-        --set-config /main/capturesettings/capturemode=4   > /dev/null
+        --set-config /main/capturesettings/capturemode=4
     #
     # α7Rvでは、gphoto2で１秒あたり１枚程度の連続撮影が限度。連写モードに設定はできるがシャッター押しっぱなしにできない。
     # libgphoto2のα7Rvの対応にバグがあるらしく、一般的なPTPデバイスとしてしか使えずこのような制御が不可。
@@ -69,7 +65,7 @@ shoot_diamondring() {
     
     # sony remote sdkで作った「指定秒シャッターを切り続けるプログラム」を起動
     echo "Connect to A7RV.."
-    ./bin/push-shutter ${CAPTURE_DURATION_DURING_DIAMONDRING}
+    ../bin/push-shutter ${CAPTURE_DURATION_DURING_DIAMONDRING}
 }
 
 #

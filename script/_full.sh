@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-. ./eclipse-env.sh
-. ./shoot.sh
+set -o errtrace
+. ../settings.sh
+. ./_func.sh
+. ../shoot.sh
 
 #
 ## ダイヤモンドリング(第２接触)
@@ -11,7 +13,7 @@ wait_until "第２接触" "${C2_TIME}" "-${WAIT_BEFORE_C2}"
 #
 # ダイヤモンドリング撮影関数を1回だけ起動
 #
-shoot_diamondring
+shoot_diamondring > /dev/null
 
 ## 皆既中
 #
@@ -20,7 +22,7 @@ shoot_diamondring
 start_time=$(date --utc +%s)
 while true; do
     echo $(date --utc +%H:%M:%S)
-    shoot_corona
+    shoot_corona > /dev/null
 
     # 終了条件はC3の${WAIT_BEFORE_C3}+3秒前
     current_time=$(date --utc +%s)
@@ -34,6 +36,7 @@ done
 #
 # ダイヤモンドリング撮影関数を1回だけ起動
 #
-shoot_diamondring
+shoot_diamondring > /dev/null
 
 echo "End Full Eclipse"
+wait_until "部分食の終了" ${C4_TIME}

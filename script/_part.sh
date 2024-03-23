@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
-. ./eclipse-env.sh
-. ./shoot.sh
+set -o errtrace
+. ../settings.sh
+. ./_func.sh
+. ../shoot.sh
 
 #
 ## 部分日食
@@ -17,7 +19,7 @@ while true; do
     start_time=$(date --utc +%H:%M:%S)
     
     # 撮影
-    shoot_partial
+    shoot_partial > /dev/null
 
     # 前半部分日食の撮影終了条件
     current_time=$(date --utc +%s)
@@ -40,7 +42,7 @@ while true; do
     start_time=$(date --utc +%H:%M:%S)
     
     # 撮影
-    shoot_partial
+    shoot_partial > /dev/null
 
     # 後半部分日食の撮影終了条件
     current_time=$(date +%s)
