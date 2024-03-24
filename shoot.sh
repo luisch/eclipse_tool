@@ -11,11 +11,12 @@ init_partial(){
     #
     # 撮影パラメータを設定
     #
-    # 以下の例では、シャッター速度1/500, ドライブモードを連射LOに設定する。
+    # 以下の例では、シャッター速度1/500に設定する。
     #
     # gphoto2初期化
     gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500"
-    gphoto2 -q --set-config /main/capturesettings/capturemode="Continuous Low Speed"
+    #gphoto2 -q --set-config /main/capturesettings/capturemode="Continuous Low Speed"
+    :
 }
 #
 # 部分日食時間の撮影コマンド
@@ -58,7 +59,8 @@ init_diamondring(){
     #
     # gphoto2初期化
     gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500"
-    gphoto2 -q --set-config /main/capturesettings/capturemode="Continuous Low Speed"
+    #gphoto2 -q --set-config /main/capturesettings/capturemode="Continuous Low Speed"
+    :
 }
 shoot_diamondring() {
     #
@@ -100,25 +102,25 @@ init_corona(){
 shoot_corona() {
     #
     # --capture-imageでは直前のダイヤモンドリングで連写したバッファが残っている間は撮影が進まない。そこでtrigger-captureを用いている。
-    # 0.8秒待っているのは、撮影コマンド実行からわずかな時間、カメラがシャッター速度等の変更を受け付けない時間があるため。
+    # 0.7秒待っているのは、撮影コマンド実行からわずかな時間、カメラがシャッター速度等の変更を受け付けない時間があるため。
     #
     # 1/500秒
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500" --trigger-capture
-    sleep 0.8
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/250" --trigger-capture
-    sleep 0.8
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/125" --trigger-capture
-    sleep 0.8
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/60" --trigger-capture
-    sleep 0.8
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/30" --trigger-capture
-    sleep 0.8
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/15" --trigger-capture
-    sleep 0.8
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/8" --trigger-capture
-    sleep 0.8
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/4" --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/30"  --trigger-capture
     sleep 0.7
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/2" --trigger-capture
-    sleep 0.6
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/15"  --trigger-capture
+    sleep 0.7
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/60"  --trigger-capture
+    sleep 0.7
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/8"   --trigger-capture
+    sleep 0.7
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/125" --trigger-capture
+    sleep 0.7
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/4"   --trigger-capture
+    sleep 0.7
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/250" --trigger-capture
+    sleep 0.7
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/2"   --trigger-capture
+    sleep 0.7
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500" --trigger-capture
+    sleep 0.7
 }
