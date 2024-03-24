@@ -11,11 +11,11 @@ init_partial(){
     #
     # 撮影パラメータを設定
     #
-    # 以下の例では、シャッター速度1/500, ドライブモードを1枚に設定する。
+    # 以下の例では、シャッター速度1/500, ドライブモードを連射LOに設定する。
     #
     # gphoto2初期化
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed=42
-    gphoto2 -q --set-config /main/capturesettings/capturemode=0
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500"
+    gphoto2 -q --set-config /main/capturesettings/capturemode="Continuous Low Speed"
 }
 #
 # 部分日食時間の撮影コマンド
@@ -34,15 +34,15 @@ shoot_partial() {
     #
     
     # A7Rvではshutterspeed=45が1/1000
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed=45 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/1000" --trigger-capture
     sleep 0.8
     
     # A7Rvではshutterspeed=45が1/500
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed=42 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500" --trigger-capture
     sleep 0.8
 
     # A7Rvではshutterspeed=45が1/250
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed=39 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/250" --trigger-capture
     sleep 0.8
 }
 
@@ -57,8 +57,8 @@ init_diamondring(){
     # 以下の例では、シャッター速度1/500, ドライブモードを連写LOに設定する。
     #
     # gphoto2初期化
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed=42
-    gphoto2 -q --set-config /main/capturesettings/capturemode=4
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500"
+    gphoto2 -q --set-config /main/capturesettings/capturemode="Continuous Low Speed"
 }
 shoot_diamondring() {
     #
@@ -90,21 +90,35 @@ init_corona(){
     #
     # 撮影パラメータを設定
     #
-    # 以下の例ではドライブモードを連写LOに設定する。
-    # シャッタースピードはshootしながら変更する。
-    #
-    # gphoto2初期化
-    gphoto2 -q --set-config /main/capturesettings/capturemode=0
+    # シャッタースピードはshootしながら変更するためここでは操作しない。
+    # ドライブモードを1枚撮りに設定するには次のコマンドを実行する。
+    # ただ、α7Rvでは保存バッファが残ってる間ドライブモード変更ができない（read onlyになる）ため、エラーになる。
+    # バッファが捌けるのを待っていると1分くらいロスする上に連写モードになっていてもあまり実害ないので、このままにする。
+    # gphoto2 -q --set-config /main/capturesettings/capturemode=0
+    :
 }
 shoot_corona() {
     #
     # --capture-imageでは直前のダイヤモンドリングで連写したバッファが残っている間は撮影が進まない。そこでtrigger-captureを用いている。
     # 0.8秒待っているのは、撮影コマンド実行からわずかな時間、カメラがシャッター速度等の変更を受け付けない時間があるため。
     #
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed=45 --trigger-capture
+    # 1/500秒
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500" --trigger-capture
     sleep 0.8
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed=42 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/250" --trigger-capture
     sleep 0.8
-    gphoto2 -q --set-config /main/capturesettings/shutterspeed=39 --trigger-capture
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/125" --trigger-capture
     sleep 0.8
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/60" --trigger-capture
+    sleep 0.8
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/30" --trigger-capture
+    sleep 0.8
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/15" --trigger-capture
+    sleep 0.8
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/8" --trigger-capture
+    sleep 0.8
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/4" --trigger-capture
+    sleep 0.7
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/2" --trigger-capture
+    sleep 0.6
 }

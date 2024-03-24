@@ -37,14 +37,17 @@ exec 2> >(while read line; do echo "$(date '+%H:%M:%S') [ERROR] $line"; done | t
 # エラー時処理
 #
 function retry_shot() {
-  echo -e "コマンド再試行します.. \n-> $@" 1>&2
-  sleep 1.0
-  gphoto2 --auto-detect > /dev/null
+  echo -e "##エラー検知、コマンド再試行します##\n -> $@" 1>&2
   trap - ERR
-  eval "$1"
-  if [ $? -ne 0 ]; then
-    echo "撮影失敗" 1>&2
-  fi
+   sleep 1.0
+   gphoto2 --reset
+   gphoto2 --auto-detect > /dev/null
+   eval "$1"
+   if [ $? -ne 0 ]; then
+     echo "コマンド失敗" 1>&2
+   else
+     echo "コマンド成功"
+   fi
   trap 'retry_shot "$BASH_COMMAND"' ERR
 }
 trap 'retry_shot "$BASH_COMMAND"' ERR
