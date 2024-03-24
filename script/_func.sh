@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+set -o errtrace
 
 #
 # 共通関数
@@ -27,10 +28,17 @@ wait_until() {
 }
 
 #
+# ログ出力
+#
+LOG_FILE="../$(date --utc +%Y%m%d).log"
+exec 2> >(while read line; do echo "$(date '+%H:%M:%S') [ERROR] $line"; done | tee -a $LOG_FILE)
+
+#
 # エラー時処理
 #
 function retry_shot() {
-  echo -e "failed and retry \n- $@" 1>&2
+  echo -e "コマンド再試行します.. \n-> $@" 1>&2
+  sleep 1.0
   gphoto2 --auto-detect > /dev/null
   trap - ERR
   eval "$1"

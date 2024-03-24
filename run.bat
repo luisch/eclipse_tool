@@ -20,7 +20,12 @@ REM "これが問題になる場合は別途Cygwinなどを入れて2行目の�
 REM "その場合はshoot.sh内でgphoto2を呼び出すときに wsl -eを先頭につけること。"
 REM "また裏でWSLのターミナルを開いておかないとエラーが出るっぽい。"
 
-wt.exe -pwt -d . powershell -NoExit -ExecutionPolicy Unrestricted -Command ".\script\_watchdog.ps1" ";" split-pane -s 0.7 -H -p "Ubuntu" -d ./script wsl --shell-type standard -- bash ./_part.sh ";" split-pane -V -p "Ubuntu" -d ./script wsl --shell-type standard -- bash ./_full.sh
+wt.exe ^
+    -pwt -d . powershell -NoExit -ExecutionPolicy Unrestricted -Command ".\script\_watchdog.ps1" ";" ^
+    split-pane -s 0.7 -H ^
+    -p "Ubuntu" -d ./script wsl --shell-type standard -- bash ./_part.sh ";" ^
+    split-pane -V ^
+    -p "Ubuntu" -d ./script wsl --shell-type standard -- bash ./_full.sh
 
 REM pause > nul
 exit

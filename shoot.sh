@@ -5,6 +5,19 @@
 #
 
 #
+# 部分日食時間の撮影モード設定
+#
+init_partial(){
+    #
+    # 撮影パラメータを設定
+    #
+    # 以下の例では、シャッター速度1/500, ドライブモードを1枚に設定する。
+    #
+    # gphoto2初期化
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed=42
+    gphoto2 -q --set-config /main/capturesettings/capturemode=0
+}
+#
 # 部分日食時間の撮影コマンド
 # この関数は CAPTURE_INTERVAL 秒の間隔で定期的に呼び出される。
 # 関数内処理が CAPTURE_INTERVALより時間が掛かってしまった場合は処理終了後即呼び出される。
@@ -37,16 +50,17 @@ shoot_partial() {
 # ダイアモンドリング撮影
 # この関数は、第２接触の WAIT_BEFORE_C2秒前と、第３接触のWAIT_BEFORE_C3秒前にそれぞれ１回だけ呼び出される。
 #
-shoot_diamondring() {
+init_diamondring(){
     #
     # 撮影パラメータを設定
     #
     # 以下の例では、シャッター速度1/500, ドライブモードを連写LOに設定する。
     #
     # gphoto2初期化
-    gphoto2 -q \
-        --set-config /main/capturesettings/shutterspeed=42 \
-        --set-config /main/capturesettings/capturemode=4
+    gphoto2 -q --set-config /main/capturesettings/shutterspeed=42
+    gphoto2 -q --set-config /main/capturesettings/capturemode=4
+}
+shoot_diamondring() {
     #
     # α7Rvでは、gphoto2で１秒あたり１枚程度の連続撮影が限度。連写モードに設定はできるがシャッター押しっぱなしにできない。
     # libgphoto2のα7Rvの対応にバグがあるらしく、一般的なPTPデバイスとしてしか使えずこのような制御が不可。
@@ -62,7 +76,7 @@ shoot_diamondring() {
     # ただ残念ながらこのプログラムは起動後ボタン押下処理が走るまで約4秒の時間を要する。
     # ダイヤモンドリングにおいてはシャッター切るタイミングを少し早めに設定しておく必要がある。
     #
-    
+    #
     # sony remote sdkで作った「指定秒シャッターを切り続けるプログラム」を起動
     echo "Connect to A7RV.."
     ../bin/push-shutter ${CAPTURE_DURATION_DURING_DIAMONDRING}
@@ -72,6 +86,16 @@ shoot_diamondring() {
 # コロナ撮影
 # この関数は コロナ時間中連続的に呼び出される。
 #
+init_corona(){
+    #
+    # 撮影パラメータを設定
+    #
+    # 以下の例ではドライブモードを連写LOに設定する。
+    # シャッタースピードはshootしながら変更する。
+    #
+    # gphoto2初期化
+    gphoto2 -q --set-config /main/capturesettings/capturemode=0
+}
 shoot_corona() {
     #
     # --capture-imageでは直前のダイヤモンドリングで連写したバッファが残っている間は撮影が進まない。そこでtrigger-captureを用いている。

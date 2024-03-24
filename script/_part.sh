@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -o errtrace
 . ../settings.sh
 . ./_func.sh
 . ../shoot.sh
@@ -12,6 +11,7 @@ set -o errtrace
 
 ## 第1接触まで待つ
 wait_until "第１接触" "${C1_TIME}"
+init_partial > /dev/null
 
 # 第１接触期間中、${CAPTURE_INTERVAL}ごとに撮影
 # 第２接触の${CAPTURE_INTERVAL}+${WAIT_BEFORE_C2}*2秒より少なくなったら終了する
@@ -35,6 +35,7 @@ done
 
 ## 第3接触の${WAIT_AFTER_C3}秒後まで待つ
 wait_until "第３接触" "${C3_TIME}" "+${WAIT_AFTER_C3}"
+init_partial > /dev/null
 
 # 第3接触後、${CAPTURE_INTERVAL}ごとに撮影
 # 第4接触を${CAPTURE_INTERVAL}以上過ぎたら終了する

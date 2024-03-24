@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-set -o errtrace
 . ../settings.sh
 . ./_func.sh
 . ../shoot.sh
@@ -13,15 +12,19 @@ wait_until "第２接触" "${C2_TIME}" "-${WAIT_BEFORE_C2}"
 #
 # ダイヤモンドリング撮影関数を1回だけ起動
 #
+echo -e "shoot diamondring"
+init_diamondring > /dev/null
 shoot_diamondring > /dev/null
 
 ## 皆既中
 #
 # 定期的にコロナ撮影関数を起動
 #
+echo -e "shoot corona"
+init_corona > /dev/null
 start_time=$(date --utc +%s)
 while true; do
-    echo $(date --utc +%H:%M:%S)
+    echo -ne "."
     shoot_corona > /dev/null
 
     # 終了条件はC3の${WAIT_BEFORE_C3}+3秒前
@@ -36,6 +39,8 @@ done
 #
 # ダイヤモンドリング撮影関数を1回だけ起動
 #
+echo -e "shoot diamondring"
+init_diamondring > /dev/null
 shoot_diamondring > /dev/null
 
 echo "End Full Eclipse"
