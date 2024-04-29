@@ -1,0 +1,51 @@
+12:31:40 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+12:31:40 [ERROR] 
+12:31:40 [ERROR] ##エラー検知、コマンド再試行します##
+12:31:40 [ERROR] -> gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500"
+12:31:41 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+12:31:41 [ERROR] 
+12:31:41 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+12:31:41 [ERROR] 
+12:31:41 [ERROR] コマンド失敗
+12:31:41 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+12:31:41 [ERROR] 
+12:31:41 [ERROR] ##エラー検知、コマンド再試行します##
+12:31:41 [ERROR] -> gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/1000" --trigger-capture
+12:31:42 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+12:31:42 [ERROR] 
+12:31:42 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+12:31:42 [ERROR] 
+12:31:42 [ERROR] コマンド失敗
+13:48:57 [ERROR] 
+13:48:57 [ERROR] *** Error ***
+13:48:57 [ERROR] Property /main/capturesettings/shutterspeed is read only.
+13:49:53 [ERROR] 
+13:49:53 [ERROR] *** Error ***
+13:49:53 [ERROR] Property /main/capturesettings/shutterspeed is read only.
+14:11:53 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+14:11:53 [ERROR] 
+14:11:53 [ERROR] ##エラー検知、コマンド再試行します##
+14:11:53 [ERROR] -> gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/1000" --trigger-capture
+14:11:54 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+14:11:54 [ERROR] 
+14:11:54 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+14:11:54 [ERROR] 
+14:11:54 [ERROR] コマンド失敗
+14:11:55 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+14:11:55 [ERROR] 
+14:11:55 [ERROR] ##エラー検知、コマンド再試行します##
+14:11:55 [ERROR] -> gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/500" --trigger-capture
+14:11:56 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+14:11:56 [ERROR] 
+14:11:56 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+14:11:56 [ERROR] 
+14:11:56 [ERROR] コマンド失敗
+14:11:57 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+14:11:57 [ERROR] 
+14:11:57 [ERROR] ##エラー検知、コマンド再試行します##
+14:11:57 [ERROR] -> gphoto2 -q --set-config /main/capturesettings/shutterspeed="1/250" --trigger-capture
+14:11:58 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+14:11:58 [ERROR] 
+14:11:58 [ERROR] *** Error (-52: 'Could not find the requested device on the USB port') ***
+14:11:58 [ERROR] 
+14:11:58 [ERROR] コマンド失敗
